@@ -1,11 +1,11 @@
-import React from "react";
-import { Button, Row, Col } from "antd";
-import errImg from "@/assets/images/404.png";
-import "./index.less";
+import React from 'react'
+import { Button, Row, Col } from 'antd'
+import errImg from '@/assets/images/404.png'
+import './index.less'
 
-const NotFound = (props) => {
-  const { history } = props;
-  const goHome = () => history.replace("/");
+const NotFound = props => {
+  const { history } = props
+  const goHome = () => history.replace('/')
   return (
     <Row className="not-found">
       <Col span={12}>
@@ -21,7 +21,7 @@ const NotFound = (props) => {
         </div>
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-export default NotFound;
+export default NotFound

@@ -1,39 +1,39 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Drawer, Switch, Row, Col, Divider, Alert, Icon, Button } from "antd";
-import { toggleSettingPanel, changeSetting } from "@/store/actions";
-import clip from "@/utils/clipboard";
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { Drawer, Switch, Row, Col, Divider, Alert, Icon, Button } from 'antd'
+import { toggleSettingPanel, changeSetting } from '@/store/actions'
+import clip from '@/utils/clipboard'
 
-const RightPanel = (props) => {
+const RightPanel = props => {
   const {
     settingPanelVisible,
     toggleSettingPanel,
     changeSetting,
     sidebarLogo: defaultSidebarLogo,
     fixedHeader: defaultFixedHeader,
-    tagsView: defaultTagsView,
-  } = props;
+    tagsView: defaultTagsView
+  } = props
 
-  const [sidebarLogo, setSidebarLogo] = useState(defaultSidebarLogo);
-  const [fixedHeader, setFixedHeader] = useState(defaultFixedHeader);
-  const [tagsView, setTagsView] = useState(defaultTagsView);
+  const [sidebarLogo, setSidebarLogo] = useState(defaultSidebarLogo)
+  const [fixedHeader, setFixedHeader] = useState(defaultFixedHeader)
+  const [tagsView, setTagsView] = useState(defaultTagsView)
 
-  const sidebarLogoChange = (checked) => {
-    setSidebarLogo(checked);
-    changeSetting({ key: "sidebarLogo", value: checked });
-  };
+  const sidebarLogoChange = checked => {
+    setSidebarLogo(checked)
+    changeSetting({ key: 'sidebarLogo', value: checked })
+  }
 
-  const fixedHeaderChange = (checked) => {
-    setFixedHeader(checked);
-    changeSetting({ key: "fixedHeader", value: checked });
-  };
+  const fixedHeaderChange = checked => {
+    setFixedHeader(checked)
+    changeSetting({ key: 'fixedHeader', value: checked })
+  }
 
-  const tagsViewChange = (checked) => {
-    setTagsView(checked);
-    changeSetting({ key: "tagsView", value: checked });
-  };
+  const tagsViewChange = checked => {
+    setTagsView(checked)
+    changeSetting({ key: 'tagsView', value: checked })
+  }
 
-  const handleCopy = (e) => {
+  const handleCopy = e => {
     let config = `
     export default {
       showSettings: true,
@@ -41,9 +41,9 @@ const RightPanel = (props) => {
       fixedHeader: ${fixedHeader},
       tagsView: ${tagsView},
     }
-    `;
-    clip(config, e);
-  };
+    `
+    clip(config, e)
+  }
 
   return (
     <div className="rightSettings">
@@ -104,25 +104,23 @@ const RightPanel = (props) => {
               type="warning"
               showIcon
               icon={<Icon type="notification" />}
-              style={{ marginBottom: "16px" }}
+              style={{ marginBottom: '16px' }}
             />
-            <Button style={{ width: "100%" }} icon="copy" onClick={handleCopy}>
+            <Button style={{ width: '100%' }} icon="copy" onClick={handleCopy}>
               拷贝配置
             </Button>
           </Col>
         </Row>
       </Drawer>
     </div>
-  );
-};
+  )
+}
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     ...state.app,
-    ...state.settings,
-  };
-};
+    ...state.settings
+  }
+}
 
-export default connect(mapStateToProps, { toggleSettingPanel, changeSetting })(
-  RightPanel
-);
+export default connect(mapStateToProps, { toggleSettingPanel, changeSetting })(RightPanel)

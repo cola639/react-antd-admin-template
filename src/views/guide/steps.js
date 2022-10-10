@@ -30,8 +30,7 @@ const steps = [
       description: '系统设置',
       position: 'left'
     }
-  },
-  
+  }
 ]
 
 export default steps

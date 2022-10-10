@@ -1,142 +1,142 @@
-import React, { Component } from "react";
-import { PropTypes } from "prop-types";
-import { connect } from "react-redux";
-import echarts from "@/lib/echarts";
-import { debounce } from "@/utils";
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
+import { connect } from 'react-redux'
+import echarts from '@/lib/echarts'
+import { debounce } from '@/utils'
 
 class BarChart extends Component {
   static propTypes = {
     width: PropTypes.string,
     height: PropTypes.string,
     className: PropTypes.string,
-    styles: PropTypes.object,
-  };
+    styles: PropTypes.object
+  }
   static defaultProps = {
-    width: "100%",
-    height: "300px",
+    width: '100%',
+    height: '300px',
     styles: {},
-    className: "",
-  };
+    className: ''
+  }
   state = {
-    chart: null,
-  };
+    chart: null
+  }
 
   componentDidMount() {
-    debounce(this.initChart.bind(this), 300)();
-    window.addEventListener("resize", () => this.resize());
+    debounce(this.initChart.bind(this), 300)()
+    window.addEventListener('resize', () => this.resize())
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.sidebarCollapsed !== this.props.sidebarCollapsed) {
-      this.resize();
+      this.resize()
     }
     if (nextProps.chartData !== this.props.chartData) {
-      debounce(this.initChart.bind(this), 300)();
+      debounce(this.initChart.bind(this), 300)()
     }
   }
 
   componentWillUnmount() {
-    this.dispose();
+    this.dispose()
   }
 
   resize() {
-    const chart = this.state.chart;
+    const chart = this.state.chart
     if (chart) {
-      debounce(chart.resize.bind(this), 300)();
+      debounce(chart.resize.bind(this), 300)()
     }
   }
 
   dispose() {
     if (!this.state.chart) {
-      return;
+      return
     }
-    window.removeEventListener("resize", () => this.resize()); // 移除窗口，变化时重置图表
-    this.setState({ chart: null });
+    window.removeEventListener('resize', () => this.resize()) // 移除窗口，变化时重置图表
+    this.setState({ chart: null })
   }
 
   setOptions() {
-    const animationDuration = 3000;
+    const animationDuration = 3000
     this.state.chart.setOption({
       tooltip: {
-        trigger: "axis",
+        trigger: 'axis',
         axisPointer: {
           // 坐标轴指示器，坐标轴触发有效
-          type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
-        },
+          type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+        }
       },
       grid: {
         top: 10,
-        left: "2%",
-        right: "2%",
-        bottom: "3%",
-        containLabel: true,
+        left: '2%',
+        right: '2%',
+        bottom: '3%',
+        containLabel: true
       },
       xAxis: [
         {
-          type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
           axisTick: {
-            alignWithLabel: true,
-          },
-        },
+            alignWithLabel: true
+          }
+        }
       ],
       yAxis: [
         {
-          type: "value",
+          type: 'value',
           axisTick: {
-            show: false,
-          },
-        },
+            show: false
+          }
+        }
       ],
       series: [
         {
-          name: "pageA",
-          type: "bar",
-          stack: "vistors",
-          barWidth: "60%",
+          name: 'pageA',
+          type: 'bar',
+          stack: 'vistors',
+          barWidth: '60%',
           data: [79, 52, 200, 334, 390, 330, 220],
-          animationDuration,
+          animationDuration
         },
         {
-          name: "pageB",
-          type: "bar",
-          stack: "vistors",
-          barWidth: "60%",
+          name: 'pageB',
+          type: 'bar',
+          stack: 'vistors',
+          barWidth: '60%',
           data: [80, 52, 200, 334, 390, 330, 220],
-          animationDuration,
+          animationDuration
         },
         {
-          name: "pageC",
-          type: "bar",
-          stack: "vistors",
-          barWidth: "60%",
+          name: 'pageC',
+          type: 'bar',
+          stack: 'vistors',
+          barWidth: '60%',
           data: [30, 52, 200, 334, 390, 330, 220],
-          animationDuration,
-        },
-      ],
-    });
+          animationDuration
+        }
+      ]
+    })
   }
 
   initChart() {
-    if (!this.el) return;
-    this.setState({ chart: echarts.init(this.el, "macarons") }, () => {
-      this.setOptions(this.props.chartData);
-    });
+    if (!this.el) return
+    this.setState({ chart: echarts.init(this.el, 'macarons') }, () => {
+      this.setOptions(this.props.chartData)
+    })
   }
 
   render() {
-    const { className, height, width, styles } = this.props;
+    const { className, height, width, styles } = this.props
     return (
       <div
         className={className}
-        ref={(el) => (this.el = el)}
+        ref={el => (this.el = el)}
         style={{
           ...styles,
           height,
-          width,
+          width
         }}
       />
-    );
+    )
   }
 }
 
-export default connect((state) => state.app)(BarChart);
+export default connect(state => state.app)(BarChart)

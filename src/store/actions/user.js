@@ -1,42 +1,42 @@
-import * as types from "../action-types";
-import { reqUserInfo } from "@/api/user";
+import * as types from '../action-types'
+import { reqUserInfo } from '@/api/user'
 
-export const getUserInfo = (token) => (dispatch) => {
+export const getUserInfo = token => dispatch => {
   return new Promise((resolve, reject) => {
     reqUserInfo(token)
-      .then((response) => {
-        const { data } = response;
+      .then(response => {
+        const { data } = response
         if (data.status === 0) {
-          const userInfo = data.userInfo;
-          dispatch(setUserInfo(userInfo));
-          resolve(data);
+          const userInfo = data.userInfo
+          dispatch(setUserInfo(userInfo))
+          resolve(data)
         } else {
-          const msg = data.message;
-          reject(msg);
+          const msg = data.message
+          reject(msg)
         }
       })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
 
-export const setUserToken = (token) => {
+export const setUserToken = token => {
   return {
     type: types.USER_SET_USER_TOKEN,
-    token,
-  };
-};
+    token
+  }
+}
 
-export const setUserInfo = (userInfo) => {
+export const setUserInfo = userInfo => {
   return {
     type: types.USER_SET_USER_INFO,
-    ...userInfo,
-  };
-};
+    ...userInfo
+  }
+}
 
 export const resetUser = () => {
   return {
-    type: types.USER_RESET_USER,
-  };
-};
+    type: types.USER_RESET_USER
+  }
+}
