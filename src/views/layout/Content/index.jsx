@@ -27,9 +27,10 @@ const LayoutContent = props => {
   }
   return (
     <DocumentTitle title={getPageTitle(menuList, pathname)}>
+      {/* calculate tag height  100px  */}
       <Content style={{ height: 'calc(100% - 100px)' }}>
         <TransitionGroup>
-          <CSSTransition key={location.pathname} timeout={500} classNames="fade" exit={false}>
+          <CSSTransition key={location.pathname} timeout={50 * 1000} classNames="fade" exit={false}>
             <Switch location={location}>
               <Redirect exact from="/" to="/dashboard" />
               {routeList.map(route => {
